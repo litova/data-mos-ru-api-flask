@@ -3,61 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script
-  src="https://code.jquery.com/jquery-3.1.1.min.js"
-  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-  crossorigin="anonymous"></script>
-
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
 </head>
 <body>
-<div class="container">
-<div class="row">
-    <div class="col-md-6">
-<ul id="list">
+<ul>
     {% for row in data %}
     <li>
         <a href="{{ url_for('show_table',
-n = loop.index0) }}" >
+n = loop.index0) }}">
            {{ row['Cells']['Name'] }}
         </a>
-        <button class='preview_button' data-index="{{ loop.index0 }}" data-title="{{ row['Cells']['Name'] }}">preview</button>
     </li>
     {% endfor %}
 </ul>
-    </div>
-<div class="col-md-6">
-<div id="plot" style="position: fixed;"></div>
-    </div>
-</div>
-</div>
-<script>
-    function show_picture(index, title) {
-        $.getJSON("/json/" + index, function(data) {
-            var traces = [{
-                x: data.x,
-                y: data.y,
-                type: 'bar'
-            }];
-
-            Plotly.newPlot('plot', traces,
-                    {title: title});
-        });
-    }
-    $(document).ready(function() {
-        $("#list").on('click', 'button', function() {
-            show_picture($(this).data('index'), $(this).data('title'));
-        })
-    })
-</script>
 </body>
 </html>
